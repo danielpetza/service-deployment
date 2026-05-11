@@ -24,6 +24,12 @@ jobs:
       - name: Avvia servizi Docker compose
         run: docker-compose -f docker-compose.yml up -d
 
+      - name: Attendi inizializzazione DB
+        run: sleep 10
+
+      - name: Inizializza il DB
+        run: docker-compose -f docker-compose.yml exec microservizio python init_db.py
+
       - name: Esegui i test
         run: docker-compose -f docker-compose.yml exec microservizio pytest
 
